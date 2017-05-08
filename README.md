@@ -1,2 +1,2 @@
-# the_imgurian
+# Giraffe
 A simple Imgur API client.

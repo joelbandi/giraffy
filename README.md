@@ -1,2 +1,2 @@
-# Giraffe
+# giraffe
 A simple Imgur API client.

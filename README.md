@@ -16,7 +16,7 @@ $ npm install giraffy
 
 ### Getting Started
 
-...
+...WIP
 
 ### How to Test
 

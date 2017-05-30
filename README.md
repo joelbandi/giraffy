@@ -1,2 +1,2 @@
-# giraffe
-A simple Imgur API client.
+# giraffy
+An Imgur API client/wrapper.

@@ -67,7 +67,7 @@ Request.prototype.getURI = function () {
   return uri.href();
 };
 
-Request.prototype.getURL = function() {
+Request.prototype.getURL = function () {
   const url = this.getURI() + this.getQueryParameterString();
   return url;
 };

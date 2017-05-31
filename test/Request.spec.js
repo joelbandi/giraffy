@@ -17,4 +17,5 @@ describe('Request', () => {
     expect(errorRequest).to.throw('Builder not supplied to Request constructor.');
   });
 
+
 });

@@ -15,7 +15,7 @@ function Girafferror(message, statusCode) {
 
 Girafferror.prototype = Error.prototype;
 
-Girafferror.prototype.errorMessage = function() {
+Girafferror.prototype.errorMessage = function () {
   return `${this.name}: ${this.message}(status code ${this.statusCode})`;
 };
 

@@ -9,40 +9,34 @@
 
 import axios from 'axios';
 
-const GET = 'get';
-const POST = 'post';
-const PUT = 'put';
-const PATCH = 'patch';
-const DELETE = 'delete';
-
 const prepareAxiosConfig = function (request) {
   return {
     headers: request.getHeaders(),
     params: request.getQueryParameters(),
-    data: request.getBodyParameters();
+    data: request.getBodyParameters(),
   };
 };
 
-const prepareGirafferorObject = function (defaultMessage, err) {
+const prepareGirafferorObject = function (defaultMessage, err) { // eslint-disable-line
 
 };
 
 export function get(request) {
-  return axios.get(request.getURI(),prepareAxiosConfig(request));
+  return axios.get(request.getURI(), prepareAxiosConfig(request));
 }
 
 export function post(request) {
-  return axios.post(request.getURI(),prepareAxiosConfig(request));
+  return axios.post(request.getURI(), prepareAxiosConfig(request));
 }
 
 export function put(request) {
-  return axios.put(request.getURI(),prepareAxiosConfig(request));
+  return axios.put(request.getURI(), prepareAxiosConfig(request));
 }
 
 export function patch(request) {
-  return axios.patch(request.getURI(),prepareAxiosConfig(request));
+  return axios.patch(request.getURI(), prepareAxiosConfig(request));
 }
 
 export function del(request) {
-  return axios.delete(request.getURI(),prepareAxiosConfig(request));
+  return axios.delete(request.getURI(), prepareAxiosConfig(request));
 }

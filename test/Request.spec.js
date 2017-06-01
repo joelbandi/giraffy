@@ -8,7 +8,7 @@
  */
 
 import { expect } from 'chai';
-import Request from '../src/Request';
+import Request from '../src/utils/Request';
 describe('Request', () => {
 
 

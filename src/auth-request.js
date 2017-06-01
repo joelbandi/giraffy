@@ -1,5 +1,3 @@
-'use strict';
-
 import Builder from './utils/Builder';
 
 const DEFAULT_HOST = 'api.imgur.com/oauth2/authorize';

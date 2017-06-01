@@ -96,6 +96,4 @@ Builder.prototype.build = function () {
   return new Request(this);
 };
 
-export default function () {
-  return new Builder();
-}
+export default Builder;

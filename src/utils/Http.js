@@ -17,10 +17,6 @@ const prepareAxiosConfig = function (request) {
   };
 };
 
-const prepareGirafferorObject = function (defaultMessage, err) { // eslint-disable-line
-
-};
-
 export function get(request) {
   return axios.get(request.getURI(), prepareAxiosConfig(request));
 }

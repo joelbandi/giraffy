@@ -61,7 +61,6 @@ Request.prototype.getURI = function () {
   const uri = new URI({
     protocol: this.protocol,
     hostname: this.hostname,
-    port: this.port,
     path: this.path,
   });
   return uri.href();

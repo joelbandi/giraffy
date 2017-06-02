@@ -65,6 +65,7 @@
     "build": "node tools/build",
     "publish": "npm run build && cd dist && npm publish && cd ..",
     "publish:docs": "easystatic deploy docs --repo joelbandi/giraffy",
-    "build:docs": "easystatic start docs"
+    "build:docs": "easystatic start docs",
+    "deploy:docs": "easystatic deploy docs --repo=joelbandi/giraffy"
   }
 }

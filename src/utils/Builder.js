@@ -9,11 +9,11 @@
 import Request from './Request';
 
 const Builder = function () {
-  var host, port, protocol, queryParameters, bodyParameters, headers, jsonBody; // eslint-disable-line 
+  var hostname, port, protocol, queryParameters, bodyParameters, headers, jsonBody; // eslint-disable-line 
 };
 
-Builder.prototype.withHost = function (host) {
-  this.host = host;
+Builder.prototype.withHostname = function (hostname) {
+  this.hostname = hostname;
   return this;
 };
 

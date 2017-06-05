@@ -41,17 +41,19 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.24.1",
     "bs-html-injector": "^3.0.3",
-    "chai": "^3.5.0",
+    "chai": "^4.0.1",
     "chai-http": "^3.0.0",
-    "coveralls": "^2.11.9",
+    "coveralls": "^2.13.1",
     "del": "^2.2.0",
+    "easystatic": "^0.1.12",
+    "esdoc": "^0.5.2",
     "eslint": "^2.9.0",
     "eslint-config-airbnb": "^8.0.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "eslint-plugin-react": "^5.0.1",
     "istanbul": "^1.0.0-alpha.2",
-    "mocha": "^2.4.5",
+    "mocha": "^3.4.2",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "sinon": "^2.0.0-pre"
@@ -65,7 +67,8 @@
     "build": "node tools/build",
     "publish": "npm run build && cd dist && npm publish && cd ..",
     "publish:docs": "easystatic deploy docs --repo joelbandi/giraffy",
-    "build:docs": "easystatic start docs",
-    "deploy:docs": "easystatic deploy docs --repo=joelbandi/giraffy"
+    "start:docs": "easystatic start docs",
+    "deploy:docs": "easystatic deploy docs --repo=joelbandi/giraffy",
+    "view:coveralls": "open coverage/lcov-report/index.html"
   }
 }

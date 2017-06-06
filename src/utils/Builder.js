@@ -92,6 +92,16 @@ Builder.prototype.addHeaders = function (headers) {
   return this;
 };
 
+Builder.prototype.addClientIdHeader = function (clientId) {
+  this.withHeader('authorization', `Client-ID ${clientId}`);
+  return this;
+};
+
+Builder.prototype.addTokenHeader = function (token) {
+  this.withHeader('authorization', `Bearer ${token}`);
+  return this;
+};
+
 Builder.prototype.build = function () {
   return new Request(this);
 };

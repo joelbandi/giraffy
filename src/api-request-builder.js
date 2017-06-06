@@ -6,6 +6,6 @@ const DEFAULT_PROTOCOL = 'https';
 
 export default function () {
   return new Builder()
-    .withHost(DEFAULT_HOST)
+    .withHostname(DEFAULT_HOST)
     .withProtocol(DEFAULT_PROTOCOL);
 }

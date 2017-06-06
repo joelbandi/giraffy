@@ -3,7 +3,7 @@
 [![NPM version](http://img.shields.io/npm/v/giraffy.svg?style=flat-square)](https://www.npmjs.com/package/giraffy)
 [![NPM downloads](http://img.shields.io/npm/dm/giraffy.svg?style=flat-square)](https://www.npmjs.com/package/giraffy)
 [![Build Status](http://img.shields.io/travis/joelbandi/giraffy/master.svg?style=flat-square)](https://travis-ci.org/joelbandi/giraffy)
-[![Coverage Status](https://img.shields.io/coveralls/joelbandi/giraffy.svg?style=flat-square)](https://coveralls.io/github/joelbandi/giraffy)
+[![Coverage Status](https://coveralls.io/repos/github/joelbandi/giraffy/badge.svg?branch=master)](https://coveralls.io/github/joelbandi/giraffy?branch=master)
 [![Dependency Status](http://img.shields.io/david/joelbandi/giraffy.svg?style=flat-square)](https://david-dm.org/joelbandi/giraffy)
 
 > An Imgur client/wrapper

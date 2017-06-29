@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/giraffy.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/joelbandi/giraffy" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-apirequestbuilder">apirequestbuilder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authrequestbuilder">authrequestbuilder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Giraffy">Giraffy</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Builder">Builder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-del">del</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-get">get</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-patch">patch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-post">post</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-put">put</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-API_VERSION">API_VERSION</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/giraffy.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * giraffy
+ *
+ * Copyright &#xA9; 2016 joelbandi. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+import image from &apos;./giraffy-image&apos;;
+import auth from &apos;./giraffy-auth&apos;;
+
+/**
+ * This the Giraffy functional constructor.
+ * @param {object} credentials - conntains the clientID, clientSecret and callbackUri
+ * @todo Support Proxy objects to privatize credentials
+ */
+function Giraffy(credentials) {
+  if (typeof credentials !== &apos;undefined&apos;) {
+    const { clientId = &apos;&apos;, clientSecret = &apos;&apos;, callbackUri = &apos;&apos; } = credentials;
+    this.credentials = {
+      clientId,
+      clientSecret,
+      callbackUri,
+    };
+  } else {
+    this.credentials = {};
+  }
+}
+
+// --- Utils ---
+
+const _credentialEmptyError = function (key) {
+  throw new Error(`The ${key} credentials has not been registered with the Giraffy client.`);
+};
+
+const _addMethods = function (apis) {
+  apis.forEach((methods) =&gt; {
+    for (let i in methods) {
+      if (methods.hasOwnProperty(i)) {
+        Giraffy.prototype[i] = methods[i];
+      }
+    }
+  });
+};
+
+
+// --- Setters ---
+/**
+ * This sets giraffy credential
+ * @param {string} key - the name of the credential
+ * @param {string} value - the value of the credential
+ */
+Giraffy.prototype.setCredential = function (key, value) {
+  if ([&apos;clientId&apos;, &apos;clientSecret&apos;, &apos;callbackUri&apos;].indexOf(key) === -1) {
+    throw new Error(`Cannot set illegal credential ${key}`);
+  } else {
+    this.credentials[key] = value;
+  }
+};
+
+/**
+ * This sets the clientId
+ * @param {string} clientID - the value of the clientID
+ */
+Giraffy.prototype.setClientId = function (clientId) {
+  this.setCredential(&apos;clientId&apos;, clientId);
+};
+
+/**
+ * This sets the clientSecret
+ * @param {string} clientSecret - the value of the clientSecret
+ */
+Giraffy.prototype.setclientSecret = function (clientSecret) {
+  this.setCredential(&apos;clientSecret&apos;, clientSecret);
+};
+
+/**
+ * This sets the callbackUri
+ * @param {string} callbackUri - the value of the callbackUri
+ */
+Giraffy.prototype.setCallbackUri = function (callbackUri) {
+  this.setCredential(&apos;callbackUri&apos;, callbackUri);
+};
+
+/**
+ * This sets the setAccessToken
+ * @param {string} setAccessToken - the value of the setAccessToken
+ */
+Giraffy.prototype.setAccessToken = function (accessToken) {
+  this.credentials.accessToken = accessToken;
+};
+
+/**
+ * This sets the refreshToken
+ * @param {string} refreshToken - the value of the refreshToken
+ */
+Giraffy.prototype.setRefreshToken = function (refreshToken) {
+  this.credentials.refreshToken = refreshToken;
+};
+
+
+// --- Getters ---
+/**
+ * This gets the giraffy credential
+ * @param {string} key - the key of the credential
+ * @return {string} credential - the value of the credential
+ */
+Giraffy.prototype.getCredential = function (key) {
+  if ([&apos;clientId&apos;, &apos;clientSecret&apos;, &apos;callbackUri&apos;].indexOf(key) === -1) {
+    throw new Error(`Cannot get illegal credential ${key}`);
+  } else {
+    if (this.credentials[key] === &apos;&apos;) { _credentialEmptyError(key); }
+    return this.credentials[key];
+  }
+};
+
+/**
+ * This gets the giraffy clientId
+ * @return {string} the value of the clientId
+ */
+Giraffy.prototype.getClientId = function () {
+  if (this.clientId === &apos;&apos;) { _credentialEmptyError(&apos;clientId&apos;); }
+  return this.getCredential(&apos;clientId&apos;);
+};
+
+/**
+ * This gets the giraffy clientSecret
+ * @return {string} the value of the clientSecret
+ */
+Giraffy.prototype.getclientSecret = function () {
+  if (this.clientSecret === &apos;&apos;) { _credentialEmptyError(&apos;clientSecret&apos;); }
+  return this.getCredential(&apos;clientSecret&apos;);
+};
+
+/**
+ * This gets the giraffy callbackUri
+ * @return {string} the value of the callbackUri
+ */
+Giraffy.prototype.getCallbackUri = function () {
+  if (this.clientSecret === &apos;&apos;) { _credentialEmptyError(&apos;callbackUri&apos;); }
+  return this.getCredential(&apos;clientSecret&apos;);
+};
+
+/**
+ * This gets the giraffy accessToken
+ * @return {string} the value of the accessToken
+ */
+Giraffy.prototype.getAccessToken = function () {
+  if (!this.credentials.accessToken) {
+    throw new Error(&apos;Access token is not set&apos;);
+  }
+  return this.credentials.accessToken;
+};
+
+/**
+ * This gets the giraffy refreshToken
+ * @return {string} the value of the refreshToken
+ */
+Giraffy.prototype.getRefreshToken = function () {
+  if (!this.credentials.refreshToken) {
+    throw new Error(&apos;Refresh token is not set&apos;);
+  }
+  return this.credentials.refreshToken;
+};
+
+
+_addMethods([
+  image,
+  auth,
+]);
+
+export default Giraffy;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

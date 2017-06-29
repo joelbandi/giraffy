@@ -33,7 +33,7 @@ To launch the documentation site, run:
 
 ```sh
 $ npm install -g easystatic
-$ npm build:docs
+$ npm start:guide
 ```
 
 ### License

@@ -1,0 +1,3145 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "name": "src/api-request-builder.js",
+    "content": "import Builder from './utils/Builder';\nimport { API_VERSION } from './utils/env';\n\nconst DEFAULT_HOST = `api.imgur.com/${API_VERSION}`;\nconst DEFAULT_PROTOCOL = 'https';\n\nexport default function () {\n  return new Builder()\n    .withHostname(DEFAULT_HOST)\n    .withProtocol(DEFAULT_PROTOCOL);\n}\n",
+    "static": true,
+    "longname": "src/api-request-builder.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 1,
+    "kind": "variable",
+    "name": "DEFAULT_HOST",
+    "memberof": "src/api-request-builder.js",
+    "static": true,
+    "longname": "src/api-request-builder.js~DEFAULT_HOST",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/api-request-builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 2,
+    "kind": "variable",
+    "name": "DEFAULT_PROTOCOL",
+    "memberof": "src/api-request-builder.js",
+    "static": true,
+    "longname": "src/api-request-builder.js~DEFAULT_PROTOCOL",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/api-request-builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 3,
+    "kind": "function",
+    "name": "apirequestbuilder",
+    "memberof": "src/api-request-builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/api-request-builder.js~apirequestbuilder",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/api-request-builder.js",
+    "importStyle": "apirequestbuilder",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 4,
+    "kind": "file",
+    "name": "src/auth-request-builder.js",
+    "content": "import Builder from './utils/Builder';\n\n\nconst DEFAULT_HOST = 'api.imgur.com/oauth2';\nconst DEFAULT_PROTOCOL = 'https';\n\nexport default function () {\n  return new Builder()\n    .withHostname(DEFAULT_HOST)\n    .withProtocol(DEFAULT_PROTOCOL);\n}\n",
+    "static": true,
+    "longname": "src/auth-request-builder.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 5,
+    "kind": "variable",
+    "name": "DEFAULT_HOST",
+    "memberof": "src/auth-request-builder.js",
+    "static": true,
+    "longname": "src/auth-request-builder.js~DEFAULT_HOST",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/auth-request-builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 6,
+    "kind": "variable",
+    "name": "DEFAULT_PROTOCOL",
+    "memberof": "src/auth-request-builder.js",
+    "static": true,
+    "longname": "src/auth-request-builder.js~DEFAULT_PROTOCOL",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/auth-request-builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 7,
+    "kind": "function",
+    "name": "authrequestbuilder",
+    "memberof": "src/auth-request-builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/auth-request-builder.js~authrequestbuilder",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/auth-request-builder.js",
+    "importStyle": "authrequestbuilder",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 8,
+    "kind": "file",
+    "name": "src/giraffy-account.js",
+    "content": "/**\n * giraffy\n *\n * Copyright © 2016 joelbandi. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\nimport builderFactory from './api-request-builder';\nimport { get, post } from './utils/Http';\n\n\n// function getAccountBase(userName) {\n//     const request = builderFactory()\n//       .withPath(`account/${userName}`)\n//       .\n// }\n\nexport default {\n\n}\n",
+    "static": true,
+    "longname": "src/giraffy-account.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 9,
+    "kind": "file",
+    "name": "src/giraffy-album.js",
+    "content": "",
+    "static": true,
+    "longname": "src/giraffy-album.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 10,
+    "kind": "file",
+    "name": "src/giraffy-auth.js",
+    "content": "/**\n * giraffy\n *\n * Copyright © 2016 joelbandi. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n\nimport { get, post } from './utils/Http';\nimport builderFactory from './auth-request-builder';\n\n\nfunction authorize(params) {\n  const request = builderFactory()\n    .withPath('authorize')\n    .addQueryParameters({\n      response_type: 'token',\n      client_id: params.clientId || this.getClientId(),\n      state: params.state || {},\n    })\n    .build();\n  return get(request);\n}\n\nfunction refreshAcessToken(body) {\n  const request = builderFactory()\n    .withPath('token')\n    .withBodyParameters({\n      refresh_token: body.refreshToken || this.getRefreshToken(),\n      client_id: body.clientId || this.getClientId(),\n      client_secret: body.clientSecret || this.getClientSecret(),\n      grant_type: 'refresh_token',\n    });\n  return post(request);\n}\n\nexport default {\n  authorize,\n  refreshAcessToken,\n};\n\n",
+    "static": true,
+    "longname": "src/giraffy-auth.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 11,
+    "kind": "function",
+    "name": "authorize",
+    "memberof": "src/giraffy-auth.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy-auth.js~authorize",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy-auth.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "params",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 12,
+    "kind": "function",
+    "name": "refreshAcessToken",
+    "memberof": "src/giraffy-auth.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy-auth.js~refreshAcessToken",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy-auth.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "body",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 13,
+    "kind": "file",
+    "name": "src/giraffy-comment.js",
+    "content": "",
+    "static": true,
+    "longname": "src/giraffy-comment.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 14,
+    "kind": "file",
+    "name": "src/giraffy-gallery.js",
+    "content": "",
+    "static": true,
+    "longname": "src/giraffy-gallery.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 15,
+    "kind": "file",
+    "name": "src/giraffy-image.js",
+    "content": "/**\n * giraffy\n *\n * Copyright © 2016 joelbandi. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\n\nimport { get, post, del } from './utils/Http';\nimport builderFactory from './api-request-builder';\n\nfunction getImage(imageID) {\n  const request = builderFactory()\n    .addClientIdHeader(this.getClientId())\n    .withPath(`image/${imageID}`)\n    .build();\n  request.getURI();\n  return get(request);\n}\n\nfunction postImage({ image, album, title, description, name, type }) {\n  const request = builderFactory()\n    .withPath('image')\n    .withBodyParams({\n      image,\n      album,\n      title,\n      description,\n      name,\n      type,\n    })\n    .addClientIdHeader(this.getClientId())\n    .addTokenHeader(this.getAccessToken())\n    .build();\n  return post(request);\n}\n\nfunction deleteImageUnAuth(imageDeleteHash) {\n  const request = builderFactory()\n    .withPath(`image/${imageDeleteHash}`)\n    .withClientIdHeader(this.getClientId())\n    .build();\n  return del(request);\n}\n\nfunction deleteImageAuth(imageDeleteHash) {\n  const request = builderFactory()\n    .withPath(`image/${imageDeleteHash}`)\n    .withTokenHeader(this.getAccessToken())\n    .build();\n  return del(request);\n}\n\nfunction updateImageUnAuth(imageHash, { title, description }) {\n  const request = builderFactory()\n    .withPath(`image/${imageHash}`)\n    .addClientIdHeader(this.getClientId())\n    .withBodyParam({\n      title,\n      description,\n    })\n    .build();\n  return post(request);\n}\n\nfunction updateImageAuth(imageHash, { title, description }) {\n  const request = builderFactory()\n    .withPath(`image/${imageHash}`)\n    .addTokenHeader(this.getAccessToken())\n    .withBodyParam({\n      title,\n      description,\n    })\n    .build();\n  return post(request);\n}\n\nfunction favoriteImage(imageHash) {\n  const request = builderFactory()\n    .withpath(`image/${imageHash}/favorite`)\n    .addTokenHeader(this.getAccessToken())\n    .build();\n  return post(request);\n}\n\nexport default {\n  getImage,\n  postImage,\n  deleteImageUnAuth,\n  deleteImageAuth,\n  updateImageUnAuth,\n  updateImageAuth,\n  favoriteImage,\n};\n",
+    "static": true,
+    "longname": "src/giraffy-image.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 16,
+    "kind": "function",
+    "name": "getImage",
+    "memberof": "src/giraffy-image.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy-image.js~getImage",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy-image.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "imageID",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 17,
+    "kind": "function",
+    "name": "postImage",
+    "memberof": "src/giraffy-image.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy-image.js~postImage",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy-image.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "objectPattern",
+        "types": [
+          "{\"image\": *, \"album\": *, \"title\": *, \"description\": *, \"name\": *, \"type\": *}"
+        ],
+        "defaultRaw": {
+          "image": null,
+          "album": null,
+          "title": null,
+          "description": null,
+          "name": null,
+          "type": null
+        },
+        "defaultValue": "{\"image\":null,\"album\":null,\"title\":null,\"description\":null,\"name\":null,\"type\":null}"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 18,
+    "kind": "function",
+    "name": "deleteImageUnAuth",
+    "memberof": "src/giraffy-image.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy-image.js~deleteImageUnAuth",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy-image.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 40,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "imageDeleteHash",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 19,
+    "kind": "function",
+    "name": "deleteImageAuth",
+    "memberof": "src/giraffy-image.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy-image.js~deleteImageAuth",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy-image.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 48,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "imageDeleteHash",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 20,
+    "kind": "function",
+    "name": "updateImageUnAuth",
+    "memberof": "src/giraffy-image.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy-image.js~updateImageUnAuth",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy-image.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 56,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "imageHash",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "objectPattern1",
+        "types": [
+          "{\"title\": *, \"description\": *}"
+        ],
+        "defaultRaw": {
+          "title": null,
+          "description": null
+        },
+        "defaultValue": "{\"title\":null,\"description\":null}"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 21,
+    "kind": "function",
+    "name": "updateImageAuth",
+    "memberof": "src/giraffy-image.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy-image.js~updateImageAuth",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy-image.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 68,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "imageHash",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "objectPattern1",
+        "types": [
+          "{\"title\": *, \"description\": *}"
+        ],
+        "defaultRaw": {
+          "title": null,
+          "description": null
+        },
+        "defaultValue": "{\"title\":null,\"description\":null}"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 22,
+    "kind": "function",
+    "name": "favoriteImage",
+    "memberof": "src/giraffy-image.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy-image.js~favoriteImage",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy-image.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 80,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "imageHash",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 23,
+    "kind": "file",
+    "name": "src/giraffy.js",
+    "content": "/**\n * giraffy\n *\n * Copyright © 2016 joelbandi. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\nimport image from './giraffy-image';\nimport auth from './giraffy-auth';\n\n/**\n * This the Giraffy functional constructor.\n * @param {object} credentials - conntains the clientID, clientSecret and callbackUri\n * @todo Support Proxy objects to privatize credentials\n */\nfunction Giraffy(credentials) {\n  if (typeof credentials !== 'undefined') {\n    const { clientId = '', clientSecret = '', callbackUri = '' } = credentials;\n    this.credentials = {\n      clientId,\n      clientSecret,\n      callbackUri,\n    };\n  } else {\n    this.credentials = {};\n  }\n}\n\n// --- Utils ---\n\nconst _credentialEmptyError = function (key) {\n  throw new Error(`The ${key} credentials has not been registered with the Giraffy client.`);\n};\n\nconst _addMethods = function (apis) {\n  apis.forEach((methods) => {\n    for (let i in methods) {\n      if (methods.hasOwnProperty(i)) {\n        Giraffy.prototype[i] = methods[i];\n      }\n    }\n  });\n};\n\n\n// --- Setters ---\n/**\n * This sets giraffy credential\n * @param {string} key - the name of the credential\n * @param {string} value - the value of the credential\n */\nGiraffy.prototype.setCredential = function (key, value) {\n  if (['clientId', 'clientSecret', 'callbackUri'].indexOf(key) === -1) {\n    throw new Error(`Cannot set illegal credential ${key}`);\n  } else {\n    this.credentials[key] = value;\n  }\n};\n\n/**\n * This sets the clientId\n * @param {string} clientID - the value of the clientID\n */\nGiraffy.prototype.setClientId = function (clientId) {\n  this.setCredential('clientId', clientId);\n};\n\n/**\n * This sets the clientSecret\n * @param {string} clientSecret - the value of the clientSecret\n */\nGiraffy.prototype.setclientSecret = function (clientSecret) {\n  this.setCredential('clientSecret', clientSecret);\n};\n\n/**\n * This sets the callbackUri\n * @param {string} callbackUri - the value of the callbackUri\n */\nGiraffy.prototype.setCallbackUri = function (callbackUri) {\n  this.setCredential('callbackUri', callbackUri);\n};\n\n/**\n * This sets the setAccessToken\n * @param {string} setAccessToken - the value of the setAccessToken\n */\nGiraffy.prototype.setAccessToken = function (accessToken) {\n  this.credentials.accessToken = accessToken;\n};\n\n/**\n * This sets the refreshToken\n * @param {string} refreshToken - the value of the refreshToken\n */\nGiraffy.prototype.setRefreshToken = function (refreshToken) {\n  this.credentials.refreshToken = refreshToken;\n};\n\n\n// --- Getters ---\n/**\n * This gets the giraffy credential\n * @param {string} key - the key of the credential\n * @return {string} credential - the value of the credential\n */\nGiraffy.prototype.getCredential = function (key) {\n  if (['clientId', 'clientSecret', 'callbackUri'].indexOf(key) === -1) {\n    throw new Error(`Cannot get illegal credential ${key}`);\n  } else {\n    if (this.credentials[key] === '') { _credentialEmptyError(key); }\n    return this.credentials[key];\n  }\n};\n\n/**\n * This gets the giraffy clientId\n * @return {string} the value of the clientId\n */\nGiraffy.prototype.getClientId = function () {\n  if (this.clientId === '') { _credentialEmptyError('clientId'); }\n  return this.getCredential('clientId');\n};\n\n/**\n * This gets the giraffy clientSecret\n * @return {string} the value of the clientSecret\n */\nGiraffy.prototype.getclientSecret = function () {\n  if (this.clientSecret === '') { _credentialEmptyError('clientSecret'); }\n  return this.getCredential('clientSecret');\n};\n\n/**\n * This gets the giraffy callbackUri\n * @return {string} the value of the callbackUri\n */\nGiraffy.prototype.getCallbackUri = function () {\n  if (this.clientSecret === '') { _credentialEmptyError('callbackUri'); }\n  return this.getCredential('clientSecret');\n};\n\n/**\n * This gets the giraffy accessToken\n * @return {string} the value of the accessToken\n */\nGiraffy.prototype.getAccessToken = function () {\n  if (!this.credentials.accessToken) {\n    throw new Error('Access token is not set');\n  }\n  return this.credentials.accessToken;\n};\n\n/**\n * This gets the giraffy refreshToken\n * @return {string} the value of the refreshToken\n */\nGiraffy.prototype.getRefreshToken = function () {\n  if (!this.credentials.refreshToken) {\n    throw new Error('Refresh token is not set');\n  }\n  return this.credentials.refreshToken;\n};\n\n\n_addMethods([\n  image,\n  auth,\n]);\n\nexport default Giraffy;\n",
+    "static": true,
+    "longname": "src/giraffy.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 24,
+    "kind": "function",
+    "name": "_credentialEmptyError",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~_credentialEmptyError",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 25,
+    "kind": "function",
+    "name": "_addMethods",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~_addMethods",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "apis",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 26,
+    "kind": "function",
+    "name": "setCredential",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~setCredential",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This sets giraffy credential",
+    "lineNumber": 53,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": "the name of the credential"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "the value of the credential"
+      }
+    ]
+  },
+  {
+    "__docId__": 27,
+    "kind": "function",
+    "name": "setClientId",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~setClientId",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This sets the clientId",
+    "lineNumber": 65,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "clientID",
+        "description": "the value of the clientID"
+      }
+    ]
+  },
+  {
+    "__docId__": 28,
+    "kind": "function",
+    "name": "setclientSecret",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~setclientSecret",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This sets the clientSecret",
+    "lineNumber": 73,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "clientSecret",
+        "description": "the value of the clientSecret"
+      }
+    ]
+  },
+  {
+    "__docId__": 29,
+    "kind": "function",
+    "name": "setCallbackUri",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~setCallbackUri",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This sets the callbackUri",
+    "lineNumber": 81,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callbackUri",
+        "description": "the value of the callbackUri"
+      }
+    ]
+  },
+  {
+    "__docId__": 30,
+    "kind": "function",
+    "name": "setAccessToken",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~setAccessToken",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This sets the setAccessToken",
+    "lineNumber": 89,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "setAccessToken",
+        "description": "the value of the setAccessToken"
+      }
+    ]
+  },
+  {
+    "__docId__": 31,
+    "kind": "function",
+    "name": "setRefreshToken",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~setRefreshToken",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This sets the refreshToken",
+    "lineNumber": 97,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "refreshToken",
+        "description": "the value of the refreshToken"
+      }
+    ]
+  },
+  {
+    "__docId__": 32,
+    "kind": "function",
+    "name": "getCredential",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~getCredential",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This gets the giraffy credential",
+    "lineNumber": 108,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": "the key of the credential"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "credential - the value of the credential"
+    }
+  },
+  {
+    "__docId__": 33,
+    "kind": "function",
+    "name": "getClientId",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~getClientId",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This gets the giraffy clientId",
+    "lineNumber": 121,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "the value of the clientId"
+    }
+  },
+  {
+    "__docId__": 34,
+    "kind": "function",
+    "name": "getclientSecret",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~getclientSecret",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This gets the giraffy clientSecret",
+    "lineNumber": 130,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "the value of the clientSecret"
+    }
+  },
+  {
+    "__docId__": 35,
+    "kind": "function",
+    "name": "getCallbackUri",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~getCallbackUri",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This gets the giraffy callbackUri",
+    "lineNumber": 139,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "the value of the callbackUri"
+    }
+  },
+  {
+    "__docId__": 36,
+    "kind": "function",
+    "name": "getAccessToken",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~getAccessToken",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This gets the giraffy accessToken",
+    "lineNumber": 148,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "the value of the accessToken"
+    }
+  },
+  {
+    "__docId__": 37,
+    "kind": "function",
+    "name": "getRefreshToken",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~getRefreshToken",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": null,
+    "description": "This gets the giraffy refreshToken",
+    "lineNumber": 159,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "the value of the refreshToken"
+    }
+  },
+  {
+    "__docId__": 38,
+    "kind": "function",
+    "name": "Giraffy",
+    "memberof": "src/giraffy.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/giraffy.js~Giraffy",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/giraffy.js",
+    "importStyle": "Giraffy",
+    "description": "This the Giraffy functional constructor.",
+    "lineNumber": 17,
+    "todo": [
+      "Support Proxy objects to privatize credentials"
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "credentials",
+        "description": "conntains the clientID, clientSecret and callbackUri"
+      }
+    ]
+  },
+  {
+    "__docId__": 39,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "import Giraffy from './giraffy.js';\nexport default Giraffy;\n",
+    "static": true,
+    "longname": "src/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 40,
+    "kind": "file",
+    "name": "src/utils/Builder.js",
+    "content": "/**\n * giraffy\n *\n * Copyright © 2016 joelbandi. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\nimport Request from './Request';\n\nconst Builder = function () {\n  var hostname, port, protocol, queryParameters, bodyParameters, headers, jsonBody; // eslint-disable-line\n};\n\nBuilder.prototype.withHostname = function (hostname) {\n  this.hostname = hostname;\n  return this;\n};\n\nBuilder.prototype.withPort = function (port) {\n  this.port = port;\n  return this;\n};\n\nBuilder.prototype.withProtocol = function (protocol) {\n  this.protocol = protocol;\n  return this;\n};\n\nBuilder.prototype.withQueryParameter = function (key, value) {\n  if (!this.queryParameters) { this.queryParameters = {}; }\n  this.queryParameters[key] = value;\n  return this;\n};\n\nBuilder.prototype.withQueryParameters = function (queryParameters) {\n  this.queryParameters = queryParameters;\n  return this;\n};\n\nBuilder.prototype.addQueryParameters = function (queryParameters) {\n  if (!this.queryParameters) { this.queryParameters = {}; }\n  this.queryParameters = {\n    ...this.queryParameters,\n    ...queryParameters,\n  };\n  return this;\n};\n\nBuilder.prototype.withPath = function (path) {\n  this.path = path;\n  return this;\n};\n\nBuilder.prototype.withBodyParameter = function (key, value) {\n  if (!this.bodyParameters) { this.bodyParameters = {}; }\n  this.bodyParameters[key] = value;\n  return this;\n};\n\nBuilder.prototype.withBodyParameters = function (bodyParameters) {\n  this.bodyParameters = bodyParameters;\n  return this;\n};\n\nBuilder.prototype.addBodyParameters = function (bodyParameters) {\n  if (!this.bodyParameters) { this.bodyParameters = {}; }\n  this.bodyParameters = {\n    ...this.bodyParameters,\n    ...bodyParameters,\n  };\n  return this;\n};\n\nBuilder.prototype.withHeader = function (key, value) {\n  if (!this.headers) { this.headers = {}; }\n  this.headers[key] = value;\n  return this;\n};\n\nBuilder.prototype.withHeaders = function (headers) {\n  this.headers = headers;\n  return this;\n};\n\nBuilder.prototype.addHeaders = function (headers) {\n  if (!this.headers) { this.headers = {}; }\n  this.headers = {\n    ...this.headers,\n    ...headers,\n  };\n  return this;\n};\n\nBuilder.prototype.addClientIdHeader = function (clientId) {\n  this.withHeader('authorization', `Client-ID ${clientId}`);\n  return this;\n};\n\nBuilder.prototype.addTokenHeader = function (token) {\n  this.withHeader('authorization', `Bearer ${token}`);\n  return this;\n};\n\nBuilder.prototype.build = function () {\n  return new Request(this);\n};\n\nexport default Builder;\n",
+    "static": true,
+    "longname": "src/utils/Builder.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 41,
+    "kind": "function",
+    "name": "withHostname",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withHostname",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "hostname",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 42,
+    "kind": "function",
+    "name": "withPort",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withPort",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "port",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 43,
+    "kind": "function",
+    "name": "withProtocol",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withProtocol",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "protocol",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 44,
+    "kind": "function",
+    "name": "withQueryParameter",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withQueryParameter",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 45,
+    "kind": "function",
+    "name": "withQueryParameters",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withQueryParameters",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "queryParameters",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 46,
+    "kind": "function",
+    "name": "addQueryParameters",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~addQueryParameters",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "queryParameters",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 47,
+    "kind": "function",
+    "name": "withPath",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withPath",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 50,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "path",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 48,
+    "kind": "function",
+    "name": "withBodyParameter",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withBodyParameter",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 55,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 49,
+    "kind": "function",
+    "name": "withBodyParameters",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withBodyParameters",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 61,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "bodyParameters",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 50,
+    "kind": "function",
+    "name": "addBodyParameters",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~addBodyParameters",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 66,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "bodyParameters",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 51,
+    "kind": "function",
+    "name": "withHeader",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withHeader",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 75,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "function",
+    "name": "withHeaders",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~withHeaders",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 81,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "headers",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "function",
+    "name": "addHeaders",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~addHeaders",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 86,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "headers",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "function",
+    "name": "addClientIdHeader",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~addClientIdHeader",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 95,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "clientId",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "function",
+    "name": "addTokenHeader",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~addTokenHeader",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 100,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "token",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "function",
+    "name": "build",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~build",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 105,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "function",
+    "name": "Builder",
+    "memberof": "src/utils/Builder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Builder.js~Builder",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/utils/Builder.js",
+    "importStyle": "Builder",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": []
+  },
+  {
+    "__docId__": 58,
+    "kind": "file",
+    "name": "src/utils/Http.js",
+    "content": "/**\n * giraffy\n *\n * Copyright © 2016 joelbandi. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\nimport axios from 'axios';\n\nconst prepareAxiosConfig = function (request) {\n  return {\n    headers: request.getHeaders(),\n    params: request.getQueryParameters(),\n    data: request.getBodyParameters(),\n  };\n};\n\nexport function get(request) {\n  return axios.get(request.getURI(), prepareAxiosConfig(request));\n}\n\nexport function post(request) {\n  return axios.post(request.getURI(), prepareAxiosConfig(request));\n}\n\nexport function put(request) {\n  return axios.put(request.getURI(), prepareAxiosConfig(request));\n}\n\nexport function patch(request) {\n  return axios.patch(request.getURI(), prepareAxiosConfig(request));\n}\n\nexport function del(request) {\n  return axios.delete(request.getURI(), prepareAxiosConfig(request));\n}\n",
+    "static": true,
+    "longname": "src/utils/Http.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 59,
+    "kind": "function",
+    "name": "prepareAxiosConfig",
+    "memberof": "src/utils/Http.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Http.js~prepareAxiosConfig",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Http.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "request",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"headers\": *, \"params\": *, \"data\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "function",
+    "name": "get",
+    "memberof": "src/utils/Http.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Http.js~get",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/utils/Http.js",
+    "importStyle": "{get}",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "request",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "function",
+    "name": "post",
+    "memberof": "src/utils/Http.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Http.js~post",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/utils/Http.js",
+    "importStyle": "{post}",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "request",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 62,
+    "kind": "function",
+    "name": "put",
+    "memberof": "src/utils/Http.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Http.js~put",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/utils/Http.js",
+    "importStyle": "{put}",
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "request",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "function",
+    "name": "patch",
+    "memberof": "src/utils/Http.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Http.js~patch",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/utils/Http.js",
+    "importStyle": "{patch}",
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "request",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "function",
+    "name": "del",
+    "memberof": "src/utils/Http.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Http.js~del",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/utils/Http.js",
+    "importStyle": "{del}",
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "request",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "file",
+    "name": "src/utils/Request.js",
+    "content": "/**\n * giraffy\n *\n * Copyright © 2016 joelbandi. All rights reserved.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE.txt file in the root directory of this source tree.\n */\n\nimport URI from 'urijs';\n\nfunction Request(builder) {\n  if (!builder) {\n    throw new Error('Builder not supplied to Request constructor.');\n  }\n\n  this.hostname = builder.hostname;\n  this.port = builder.port;\n  this.protocol = builder.protocol;\n  this.queryParameters = builder.queryParameters || {};\n  this.bodyParameters = builder.bodyParameters || {};\n  this.headers = builder.headers || {};\n  this.path = builder.path || '';\n}\n\nRequest.prototype.getHostname = function () {\n  return this.hostname;\n};\n\nRequest.prototype.getPort = function () {\n  return this.port;\n};\n\nRequest.prototype.getProtocol = function () {\n  return this.protocol;\n};\n\nRequest.prototype.getQueryParameters = function () {\n  return this.queryParameters;\n};\n\nRequest.prototype.getBodyParameters = function () {\n  return this.bodyParameters;\n};\n\nRequest.prototype.getHeaders = function () {\n  return this.headers;\n};\n\nRequest.prototype.getPath = function () {\n  return this.path;\n};\n\nRequest.prototype.getQueryParameterString = function () {\n  const uri = new URI();\n  uri.search(this.getQueryParameters());\n  return uri.href();\n};\n\nRequest.prototype.getURI = function () {\n  const uri = new URI({\n    protocol: this.protocol,\n    hostname: this.hostname,\n    path: this.path,\n  });\n  return uri.href();\n};\n\nRequest.prototype.getURL = function () {\n  const url = this.getURI() + this.getQueryParameterString();\n  return url;\n};\n\nRequest.prototype.addQueryPameter = function (key, value) {\n  this.queryParameters[key] = value;\n};\n\nRequest.prototype.addQueryParameters = function (parameters) {\n  for (let key in parameters) {\n    if (!parameters.hasOwnProperty(key)) { continue; }\n    this.addQueryPameter(key, parameters[key]);\n  }\n};\n\nRequest.prototype.addBodyParameter = function (key, value) {\n  this.bodyParameters[key] = value;\n};\n\nRequest.prototype.addBodyParameters = function (parameters) {\n  for (let key in parameters) {\n    if (!parameters.hasOwnProperty(key)) { continue; }\n    this.addBodyParameter(key, parameters[key]);\n  }\n};\n\nRequest.prototype.addHeader = function (key, value) {\n  this.headers[key] = value;\n};\n\nRequest.prototype.addHeaders = function (parameters) {\n  for (let key in parameters) {\n    if (!parameters.hasOwnProperty(key)) { continue; }\n    this.addHeader(key, parameters[key]);\n  }\n};\n\nexport default Request;\n",
+    "static": true,
+    "longname": "src/utils/Request.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 66,
+    "kind": "function",
+    "name": "getHostname",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getHostname",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "function",
+    "name": "getPort",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getPort",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "function",
+    "name": "getProtocol",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getProtocol",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 69,
+    "kind": "function",
+    "name": "getQueryParameters",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getQueryParameters",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "function",
+    "name": "getBodyParameters",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getBodyParameters",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "function",
+    "name": "getHeaders",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getHeaders",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 46,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "function",
+    "name": "getPath",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getPath",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 50,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "function",
+    "name": "getQueryParameterString",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getQueryParameterString",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 54,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 74,
+    "kind": "function",
+    "name": "getURI",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getURI",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 60,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 75,
+    "kind": "function",
+    "name": "getURL",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~getURL",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 69,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "function",
+    "name": "addQueryPameter",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~addQueryPameter",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 74,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 77,
+    "kind": "function",
+    "name": "addQueryParameters",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~addQueryParameters",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 78,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "parameters",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 78,
+    "kind": "function",
+    "name": "addBodyParameter",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~addBodyParameter",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 85,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 79,
+    "kind": "function",
+    "name": "addBodyParameters",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~addBodyParameters",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 89,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "parameters",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 80,
+    "kind": "function",
+    "name": "addHeader",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~addHeader",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 96,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 81,
+    "kind": "function",
+    "name": "addHeaders",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~addHeaders",
+    "access": null,
+    "export": false,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 100,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "parameters",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 82,
+    "kind": "function",
+    "name": "Request",
+    "memberof": "src/utils/Request.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/Request.js~Request",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/utils/Request.js",
+    "importStyle": "Request",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "builder",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 83,
+    "kind": "file",
+    "name": "src/utils/env.js",
+    "content": "export const API_VERSION = 3;\n",
+    "static": true,
+    "longname": "src/utils/env.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 84,
+    "kind": "variable",
+    "name": "API_VERSION",
+    "memberof": "src/utils/env.js",
+    "static": true,
+    "longname": "src/utils/env.js~API_VERSION",
+    "access": null,
+    "export": true,
+    "importPath": "giraffy/src/utils/env.js",
+    "importStyle": "{API_VERSION}",
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 86,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 87,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 88,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 89,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 90,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 91,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 92,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 93,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 94,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 95,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 96,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 97,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 98,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 99,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 100,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 101,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 102,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 103,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 104,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 105,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 107,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 108,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 109,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 110,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 111,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 112,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 113,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 114,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 115,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 116,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 117,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 118,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 119,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 120,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 121,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 122,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 123,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 124,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 125,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 126,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 127,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 128,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 129,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 130,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 131,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 132,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": "",
+    "lineNumber": 193,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 134,
+    "kind": "external",
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 135,
+    "kind": "external",
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 136,
+    "kind": "external",
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 137,
+    "kind": "external",
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 138,
+    "kind": "external",
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 139,
+    "kind": "external",
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 140,
+    "kind": "external",
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 141,
+    "kind": "external",
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": "",
+    "lineNumber": 34,
+    "builtinExternal": true
+  }
+]
